@@ -13,13 +13,6 @@ class Pizza:
             else:
                 self.toppings = toppings
         
-            
-
-                
-                
-            
-
-
         def add_topping(self):
             while True:
                 topping = input(f"Type 'done' to exit. Choose toppings: {toppings_list1} ").lower()
