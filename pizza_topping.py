@@ -1,11 +1,13 @@
 toppings_list1 = "pepperoni, sausage, mushrooms, onions, bell peppers, black olives, extra cheese, ham, pineapple, bacon, chicken"
 toppings_lists = toppings_list1.split(", ")
-answer1 = "yes, y"
-answer = answer1.split(", ")
+crust_type = "Small Medium Large Deep Dish".split()
+size_list = "Small Medium Large".split()
+answer1 = "yes y"
+answer = answer1.split()
 
 class Pizza:
 
-        def __init__(self, size="", crust_type="", toppings=None):
+        def __init__(self, size=[], crust_type=[], toppings=None):
             self.size = size
             self.crust_type = crust_type
             if toppings is None:
@@ -36,10 +38,22 @@ class Pizza:
             
 
         def add_size(self):
-            self.size = input("Choose size: ( Small | Medium | Large )")
-            
+            while True:
+                sizes = input("Choose size: ( Small | Medium | Large )").title()
+                if sizes not in size_list:
+                    print("Not a valid size")
+                else:
+                    self.size.append(sizes)
+                    return
+                    
         def add_crust_type(self):
-            self.crust_type = input("Choose crust type ( Thin | Medium | Large ): ")
+            while True:
+                crust_types = input("Choose crust type: ( Small | Medium | Large | Deep Dish )").title()
+                if crust_types not in crust_type:
+                    print("Not a valid crust type")
+                else:
+                    self.crust_type.append(crust_types)
+                    return
 
         def remove_topping(self,):
             if not self.toppings:
@@ -57,9 +71,9 @@ class Pizza:
 
 
         def pizza_details(self):
-            print("\n---- Your Pizza ----")
-            print(f"Size: {self.size.title()}")
-            print(f"Crust: {self.crust_type.title()}")
+            print("---- Your Pizza ----")
+            print(f"Size: {self.size}")
+            print(f"Crust: {self.crust_type}")
             print(f"Toppings: {', '.join(self.toppings)}")
             print("--------------------")
 order = Pizza()
