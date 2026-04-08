@@ -1,24 +1,26 @@
+#topping_lists has it's own function to caclualate the price
 toppings_list1 = "pepperoni, sausage, mushrooms, onions, bell peppers, black olives, extra cheese, ham, pineapple, bacon, chicken"
-toppings_lists = toppings_list1.split(", ")
 crust_type = {"Thin": 1.00, "Medium" : 1.50, "Large" : 1.99, "Deep Dish" : 2.49}
 size_list = {"Small" : 6.50, "Medium" : 9.50, "Large" : 10.00}
 answers = ["yes", "y"]
+toppings_lists = toppings_list1.split(", ")
 price = 0
 wallet = 100.00
 
-# pizza_order = {
-#     "size" : [size_list],
-#     "crust" : [crust_type],
-#     "toppings" : [toppings_list1],
-# }
 def calculate_tax(price):
     result = price * .06
     return result
 
-def calculate_price(size, crust, toppings=1.00):
-    price = size_list[size] + crust_type[crust] + toppings
-    result = price
-    return result
+def calculate_price(size, crust, toppings=1):
+    individual_topping = 0.60
+
+    individual_prices = []
+    base_price = size_list[size] + crust_type[crust]
+    for i in range(1, toppings+1):
+        individual_topping += (i * 0.08)
+        individual_prices.append(round(individual_topping, 2))
+        base_price = base_price + individual_topping
+    return base_price, individual_prices
 
 class Pizza:
 
@@ -35,7 +37,7 @@ class Pizza:
             print(f"Available toppings: {toppings_list1} ")
             while True:
                 
-                topping = input(f"Type topping name to add topping or 'done' to finish. ").lower()
+                topping = input(f"Type topping name to add topping or 'done' to finish. ").lower().strip()
 
                 if topping == "done":
                     return
@@ -70,9 +72,8 @@ class Pizza:
                 print("No toppings to remove.")
                 return
             while True:
-                print(f"Current toppings: {", ".join(self.toppings)}")
-                removed_topping = input(f"Type 'done' to exit. Remove topping from {self.toppings}")
-
+                print(f"Current toppings: {', '.join(self.toppings)}")
+                removed_topping = input(f"Type ingredient name to remove. Type 'done' to exit.: ").lower().strip()
                 if removed_topping in self.toppings:
                     self.toppings.remove(removed_topping)
                     print(f"Removed {removed_topping}")
@@ -86,19 +87,27 @@ class Pizza:
         # Prints a user's pizza details including tax and taxxed amount
         # Add itemized list price
         def pizza_details(self):
-            price = calculate_price(self.size, self.crust_type)
+            price, topping_price = calculate_price(self.size, self.crust_type, len(self.toppings))
             tax_amount = calculate_tax(price)
-            pizza_toppings = f"{', '.join(self.toppings) if self.toppings else 'Regular Cheese'}"
-            pizza_crust = f"{self.crust_type} {crust_type[self.crust_type]}"
-            pizza_size = f"{self.size} {size_list[self.size]}"
-        
+            
+            pizza_crust = f"{self.crust_type} ${crust_type[self.crust_type]}"
+            pizza_size = f"{self.size} ${size_list[self.size]}"
+       
             print("---- Your Pizza ----")
             print(f"Size: {pizza_size}")
             print(f"Crust: {pizza_crust}")
-            print(f"Toppings: {pizza_toppings}")
-            print(f"{"Subtotal".capitalize()}: {price}")
-            print(f"Sales Tax: {tax_amount}")
-            print(f"Total Price: {price + tax_amount}")
+            print(f"Toppings: ")
+            if not self.toppings:
+                print(f" - Regular Cheese: ${price}")
+            else:
+                for i in range(0, len(self.toppings)):
+                    name = self.toppings[i]
+                    value = topping_price[i]
+                    print(f" - {name} ${value:.2f}")
+
+            print(f"{"Subtotal".capitalize()}: {price:.2f}")
+            print(f"Sales Tax: ${tax_amount:.2f}")
+            print(f"Total Price: ${(price + tax_amount):.2f}")
             print("--------------------")
 
 order = Pizza()
@@ -106,7 +115,7 @@ order.add_crust_type()
 order.add_size()
 order.add_topping()
 if order.toppings:
-    remove_t = input("Do you want to remove a topping? type ('Y/N')").lower()
+    remove_t = input("Do you want to remove a topping? type ('Y/N'): ").lower().strip()
     if remove_t in answers:
         order.remove_topping()
 
