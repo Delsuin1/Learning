@@ -1,0 +1,29 @@
+from random import randrange as r
+from time import time as t
+
+def math_tutor():
+    print("🎊Welcome to math tutor🎊")
+    test_amount = int(input("How many math questions?: "))
+    max_num = int(input("Enter highest num used in practice: "))
+    correct = 0
+    answer_list = []
+    start = t()
+    for q in range(test_amount):
+        num1,num2 = r(1,max_num+1),r(1,max_num+1)
+        ans = num1*num2
+        attempt = int(input(f"what is {num1} x {num2}?: "))
+        answer_list.append(f"{num1} x {num2} = {ans} you entered {attempt}")
+        if attempt == ans:
+            correct += 1
+    end = t()
+    msg = "Thanks for playing"
+    msg2 = f"You answered {correct}/{test_amount}"
+    msg3 = f"% {round(correct/test_amount *100)}"
+    msg4 = f"You took {round(end-start,1)} seconds!"
+    msg5 = f"That is {round(round(end-start,1)/test_amount,1)} seconds per question!"
+    message = f"{msg}\n{msg2}\n{msg3}\n{msg4}\n{msg5}"
+    for a in answer_list:
+        message+=f"\n{a}"    
+    return message
+
+print(math_tutor())
