@@ -17,9 +17,9 @@ def math_tutor():
             correct += 1
     end = t()
     msg = "Thanks for playing"
-    msg2 = f"You answered {correct}/{test_amount}"
-    msg3 = f"% {round(correct/test_amount *100)}"
-    msg4 = f"You took {round(end-start,1)} seconds!"
+    msg2 = f"You answered {correct}/{test_amount} questions correctly!"
+    msg3 = f"You got {round(correct/test_amount *100)}% correct"
+    msg4 = f"You took {round(end-start,1)} seconds to answer!"
     msg5 = f"That is {round(round(end-start,1)/test_amount,1)} seconds per question!"
     message = f"{msg}\n{msg2}\n{msg3}\n{msg4}\n{msg5}"
     for a in answer_list:
