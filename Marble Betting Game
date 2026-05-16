@@ -1,22 +1,38 @@
 import random
 #gold is starting money
 gold = 1000
+purse = gold
+result = 0
+
+bet = "None"
 #bag held 6 green=win and 4 red=lose
 bag = ["green"]*5 + ["red"]*3 + ["black"] + ["white"]
+i=0
 #betting continues till user looses half of their money
 while gold > 500:
-    u_bet = int(input(f"You have {gold} gold to bet: "))
+    i+=1
+    u_bet = int(input(f"|       Round {i}       |\n|  Type '0' to exit.  |\n| You have {gold} gold. | \n|   Last draw: {bet}   |\n|     Enter bet?:  0  |"))
+    if u_bet == 0:
+        break
+    #trying to implement something I saw in mobile games
     bet = random.choice(bag)
+    # u_times = int(input(f"Choose how many times in a row multiplier: "))
     if bet == "green":
-        gold += u_bet
+        result += u_bet
         print("You pulled",bet)
     elif bet == "red":
-        gold -= u_bet
+        result -= u_bet
         print("You pulled",bet)
     elif bet == "black":
-        gold += u_bet * 10
+        result += u_bet * 10
         print("You pulled",bet)
     elif bet == "white":
-        gold -= u_bet * 5
+        result -= u_bet * 5
         print("You pulled",bet)
-print(gold)
+    gold+=result
+    # if gold > bet:
+    #     print(f"Up + {bet}")
+    # if gold < bet:
+    #     print(f"Down - {bet}")
+print(f'Started with {purse}G ended with {gold}G')
+print('gain/loss: ', ((gold-purse)/purse *100),'%')
