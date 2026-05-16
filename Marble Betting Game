@@ -1,0 +1,22 @@
+import random
+#gold is starting money
+gold = 1000
+#bag held 6 green=win and 4 red=lose
+bag = ["green"]*5 + ["red"]*3 + ["black"] + ["white"]
+#betting continues till user looses half of their money
+while gold > 500:
+    u_bet = int(input(f"You have {gold} gold to bet: "))
+    bet = random.choice(bag)
+    if bet == "green":
+        gold += u_bet
+        print("You pulled",bet)
+    elif bet == "red":
+        gold -= u_bet
+        print("You pulled",bet)
+    elif bet == "black":
+        gold += u_bet * 10
+        print("You pulled",bet)
+    elif bet == "white":
+        gold -= u_bet * 5
+        print("You pulled",bet)
+print(gold)
