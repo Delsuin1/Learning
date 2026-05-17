@@ -37,10 +37,11 @@ while gold > 500:
     elif bet == "white":
         result -= u_bet * 5
     
+    if result < u_bet:
+        print(f"{result}g")
+    else:
+        print(f"+{result}g")
     gold+=result
-    if result < purse:
-        print(f"{result}")
-    if result > purse:
-        print(f"{result}")
+
 print(f'\nStarted with {purse}g ended with {gold}g')
 print('gain/loss:', "+" + str(gold - purse)+"g" if gold > purse else "" + str(gold - purse)+"g")
