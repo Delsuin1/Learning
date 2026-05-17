@@ -38,5 +38,5 @@ while gold > 500:
         print(f"{result}")
     if result > purse:
         print(f"{result}")
-print(f'\nStarted with {purse}G ended with {gold}G')
-print('gain/loss: ', round((gold - purse) / purse * 100,1), '%')
+print(f'\nStarted with {purse}g ended with {gold}g')
+print('gain/loss:', "+" + str(gold - purse) if gold > purse else "" + str(gold - purse)+"g")
