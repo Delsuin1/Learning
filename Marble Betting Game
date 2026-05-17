@@ -11,12 +11,16 @@ i=0
 
 #betting continues till user looses half of their money
 while gold > 500:
-    i+=1
+    
     w =21
 
     u_bet = int(input(f"+{'-'*w}+\n|       Round {i}       |\n|  Type '0' to exit.  |\n| You have {gold} gold. | \n|   Last draw: {bet}   |\n+{'-'*w}+\n     Enter bet?: "))
+    if u_bet > gold:
+        print("Insufficient funds")
+        continue
     if u_bet == 0:
         break
+    i+=1
     #trying to implement something I saw in mobile games
     bet = random.choice(bag)
     result = 0
@@ -39,4 +43,4 @@ while gold > 500:
     if result > purse:
         print(f"{result}")
 print(f'\nStarted with {purse}g ended with {gold}g')
-print('gain/loss:', "+" + str(gold - purse) if gold > purse else "" + str(gold - purse)+"g")
+print('gain/loss:', "+" + str(gold - purse)+"g" if gold > purse else "" + str(gold - purse)+"g")
