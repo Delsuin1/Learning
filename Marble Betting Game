@@ -5,34 +5,38 @@ purse = gold
 result = 0
 
 bet = "None"
-#bag held 6 green=win and 4 red=lose
+# Bag currently holds: 5 green, 3 red, 1 black, 1 white (10 items total)
 bag = ["green"]*5 + ["red"]*3 + ["black"] + ["white"]
 i=0
+
 #betting continues till user looses half of their money
 while gold > 500:
     i+=1
-    u_bet = int(input(f"|       Round {i}       |\n|  Type '0' to exit.  |\n| You have {gold} gold. | \n|   Last draw: {bet}   |\n|     Enter bet?:  0  |"))
+    w =21
+
+    u_bet = int(input(f"+{'-'*w}+\n|       Round {i}       |\n|  Type '0' to exit.  |\n| You have {gold} gold. | \n|   Last draw: {bet}   |\n+{'-'*w}+\n     Enter bet?: "))
     if u_bet == 0:
         break
     #trying to implement something I saw in mobile games
     bet = random.choice(bag)
+    result = 0
     # u_times = int(input(f"Choose how many times in a row multiplier: "))
     if bet == "green":
         result += u_bet
-        print("You pulled",bet)
+        
     elif bet == "red":
         result -= u_bet
-        print("You pulled",bet)
+        
     elif bet == "black":
         result += u_bet * 10
-        print("You pulled",bet)
+
     elif bet == "white":
         result -= u_bet * 5
-        print("You pulled",bet)
+    
     gold+=result
-    # if gold > bet:
-    #     print(f"Up + {bet}")
-    # if gold < bet:
-    #     print(f"Down - {bet}")
-print(f'Started with {purse}G ended with {gold}G')
-print('gain/loss: ', ((gold-purse)/purse *100),'%')
+    if result < purse:
+        print(f"{result}")
+    if result > purse:
+        print(f"{result}")
+print(f'\nStarted with {purse}G ended with {gold}G')
+print('gain/loss: ', round((gold - purse) / purse * 100,1), '%')
