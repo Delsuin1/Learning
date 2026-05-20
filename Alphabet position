@@ -1,0 +1,13 @@
+def alphabet_position(letter):
+    num = []
+    other_letter = []
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    for char in letter:
+        char = char.lower()
+        if char in alphabet:
+            index = alphabet.index(char)+1
+            num.append(str(index))
+        else:
+            other_letter.append(char)
+        
+    return " ".join(num)
