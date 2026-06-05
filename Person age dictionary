@@ -1,0 +1,28 @@
+person_dict = {
+    "John" : 1993,
+    "Jones" : 1980,
+    "Jack" : 1983,
+    "Jake" : 1984,
+    "Samantha" : 1990,
+    "Debby" : 1981,
+    "Johnny" : 1988,
+    "Tim" : 1987
+}
+name = ""
+while True:
+    name = input("Type 'done' to leave. Enter name: ").title()
+    if name.lower() == "done":
+        break
+    
+
+    if name in person_dict:
+        print("Sorry name is already taken")
+        continue
+    age = int(input("Enter year born: "))
+
+    person_dict[name] = age
+
+
+for name, age in person_dict.items():
+    
+    print(f"{name} will be {2026-age} in 2026") if 2026 - age < 40 or "J" not in name else print(f"{name} will be {2026-age} and deceased in 2026")
