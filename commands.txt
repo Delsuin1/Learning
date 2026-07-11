@@ -1,0 +1,4 @@
+curl -sS https://webi.sh/gh | sh
+gh auth login
+-------------
+git config set --global pull.rebase true
