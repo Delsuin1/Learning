@@ -2,3 +2,6 @@ curl -sS https://webi.sh/gh | sh
 gh auth login
 -------------
 git config set --global pull.rebase true
+-------------
+# project/package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
