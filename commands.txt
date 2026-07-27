@@ -5,3 +5,7 @@ git config set --global pull.rebase true
 -------------
 # project/package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
+# Open windows stuff in cli
+winopen() {
+     explorer.exe "$(wslpath -w "$(realpath "$1")")"
+     }
